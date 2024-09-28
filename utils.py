@@ -1,14 +1,14 @@
-import os
-from pptx import Presentation
-from googletrans import Translator
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from pathlib import Path
+
+from googletrans import Translator
+from pptx import Presentation
 
 
 def translate_text(text, dest_language="uk"):
-    translator = Translator()
     try:
-        translated = translator.translate(text, dest=dest_language)
-        return translated.text
+        translated = Translator().translate(text, dest=dest_language)
+        return translated.text  # type: ignore
     except Exception as e:
         print(f"Translation error: {e}")
         return text
@@ -76,7 +76,11 @@ def translate_powerpoint(input_file, output_file, dest_language="uk", max_worker
 
 if __name__ == "__main__":
     input_file = input("Enter the path to the input PowerPoint file: ")
-    output_file = os.path.splitext(input_file)[0] + "_ukrainian.pptx"
+    output_file = Path(input_file).stem + "_ukrainian.pptx"
 
-    translate_powerpoint("test.pptx", "test_ukrainian.pptx")
-    print(f"Translated PowerPoint saved as: {output_file}")
+    try:
+        translate_powerpoint(input_file, output_file)
+    except Exception as e:
+        print(f"An error occurred: {e}")
+    else:
+        print(f"Translated PowerPoint saved as: {output_file}")
