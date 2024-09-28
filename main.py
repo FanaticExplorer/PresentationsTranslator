@@ -1,6 +1,6 @@
 import customtkinter as ctk
 from tkinter import filedialog, messagebox
-from utils import translate_powerpoint
+from utils import translate_powerpoint, resource_path
 import threading
 import os
 
@@ -10,7 +10,7 @@ class App(ctk.CTk):
         super().__init__()
         self.geometry("700x300")
         self.title("PowerPoint Translator")
-        ctk.set_default_color_theme("ctk_theme.json")
+        ctk.set_default_color_theme(resource_path("ctk_theme.json"))
 
         # Configure grid layout
         self.grid_columnconfigure(1, weight=1)
