@@ -1,6 +1,6 @@
 import customtkinter as ctk
 from tkinter import filedialog, messagebox
-from utils import translate_powerpoint, resource_path
+from utils import translate_powerpoint
 import threading
 import os
 
@@ -10,7 +10,7 @@ class App(ctk.CTk):
         super().__init__()
         self.geometry("700x300")
         self.title("PowerPoint Translator")
-        ctk.set_default_color_theme(resource_path("ctk_theme.json"))
+        ctk.set_default_color_theme("ctk_theme.json")
 
         # Configure grid layout
         self.grid_columnconfigure(1, weight=1)
@@ -79,7 +79,7 @@ class App(ctk.CTk):
 
         self.credits = ctk.CTkLabel(
             self,
-            text="Made by: @FanaticExplorer",
+            text="Made by: @FanaticExplorer. Bugs are expected.",
             cursor="hand2",
             font=ctk.CTkFont("Courier New"),
         )
@@ -87,6 +87,13 @@ class App(ctk.CTk):
         self.credits.bind(
             "<Button-1>", lambda e: os.startfile("https://t.me/FanaticExplorer")
         )
+
+        self.warning = ctk.CTkLabel(
+            self,
+            text="",
+            font=ctk.CTkFont("Courier New"),
+        )
+        # self.warning.grid(row=5, column=1, padx=10, pady=10, sticky="ew")
 
     def browse_input(self):
         file_path = filedialog.askopenfilename(
