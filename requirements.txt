@@ -1,3 +1,3 @@
 customtkinter
-translators
+googletrans==3.1.0a0
 python-pptx
