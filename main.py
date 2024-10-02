@@ -1,9 +1,13 @@
-import customtkinter as ctk
-from tkinter import filedialog, messagebox
-from utils import translate_powerpoint
-import threading
 import os
+import threading
+import webbrowser
+from tkinter import filedialog, messagebox
 
+import customtkinter as ctk
+
+from utils import translate_powerpoint
+
+__author__ = "https://t.me/FanaticExplorer"
 
 class App(ctk.CTk):
     def __init__(self):
@@ -85,7 +89,8 @@ class App(ctk.CTk):
         )
         self.credits.grid(row=5, column=1, padx=10, pady=10, sticky="ew")
         self.credits.bind(
-            "<Button-1>", lambda e: os.startfile("https://t.me/FanaticExplorer")
+            "<Button-1>",
+            lambda _: webbrowser.open_new_tab(__author__) if os.name != "nt" else os.startfile(__author__),
         )
 
         self.warning = ctk.CTkLabel(
@@ -149,5 +154,4 @@ class App(ctk.CTk):
 
 
 if __name__ == "__main__":
-    app = App()
-    app.mainloop()
+    App().mainloop()
